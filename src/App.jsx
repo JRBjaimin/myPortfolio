@@ -7,6 +7,8 @@ import Skills from './sections/Skills';
 import Experience from './sections/Experience';
 import Projects from './sections/Projects';
 import Contact from './sections/Contact';
+import GridDivider from './components/GridDivider';
+import AnimatedDivider from './components/AnimatedDivider';
 
 function App() {
   return (
@@ -23,8 +25,10 @@ function App() {
 
       <main>
         <Hero />
+        <GridDivider />
         <About />
         <Skills />
+        <AnimatedDivider />
         <Experience />
         <Projects />
         <Contact />

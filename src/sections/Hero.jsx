@@ -24,8 +24,10 @@ function FitText({ children, className, containerRef }) {
                 const containerW = container.getBoundingClientRect().width;
                 const textW = text.getBoundingClientRect().width;
                 if (containerW > 0 && textW > 0) {
-                    /* 0.5 = scale BHARUCHA to 50% of N letter width */
-                    text.style.fontSize = `${(containerW / textW) * 30}px`;
+                    /* dynamically scale font based on viewport width */
+                    const isMobile = window.innerWidth <= 600;
+                    const scaleFactor = isMobile ? 14 : 30;
+                    text.style.fontSize = `${(containerW / textW) * scaleFactor}px`;
                 }
             });
         };
@@ -73,7 +75,6 @@ export default function Hero() {
     const nameFilter = useMotionTemplate`blur(${nameBlur}px)`;
 
     const introOpacity = useTransform(smooth, [0, 0.32, 0.52], [1, 1, 0]);
-    const chevronOpacity = useTransform(smooth, [0, 0.38, 0.52], [1, 1, 0]);
     const outroOpacity = useTransform(smooth, [0.52, 0.74], [0, 1]);
 
     const bgScale = useTransform(smooth, [0, 0.76], [1, 1.11]);
@@ -151,12 +152,6 @@ export default function Hero() {
                 <Motion.p className="hero-outro-tagline" style={{ opacity: outroOpacity }}>
                     WHERE DESIGN MEETS EXECUTION.
                 </Motion.p>
-
-                <Motion.div className="hero-chevrons" style={{ opacity: chevronOpacity }} aria-hidden="true">
-                    {[...Array(6)].map((_, i) => (
-                        <span key={i} className="hero-chev" style={{ animationDelay: `${i * 0.18}s` }}>›</span>
-                    ))}
-                </Motion.div>
 
                 <div className="hero-grid" aria-hidden="true">
                     {[...Array(4)].map((_, i) => <div key={i} className="hero-grid-col" />)}

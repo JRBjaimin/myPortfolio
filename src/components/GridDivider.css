@@ -1,0 +1,135 @@
+.grid-divider {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    background: transparent;
+    overflow: hidden;
+    margin-top: -280px;
+    /* Pull it up OVER the hero section to remove blank space */
+    margin-bottom: 0;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.gd-top-h {
+    display: none;
+}
+
+.gd-center-wrap {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 72%;
+    max-width: 960px;
+    height: 100%;
+}
+
+.gd-center-top {
+    display: none;
+}
+
+.gd-branch-left {
+    position: absolute;
+    top: 120px;
+    right: 50%;
+    width: 50%;
+    height: 1px;
+    background: var(--grid-line);
+}
+
+.gd-branch-right {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    width: 50%;
+    height: 1px;
+    background: var(--grid-line);
+}
+
+.gd-drop {
+    position: absolute;
+    top: 120px;
+    bottom: 0;
+    width: 1px;
+    background: var(--grid-line);
+    display: flex;
+    justify-content: center;
+}
+
+.gd-drop-left {
+    left: 0;
+}
+
+.gd-drop-right {
+    right: 0;
+}
+
+.gd-drop-center {
+    left: 50%;
+}
+
+.gd-chevrons {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30px;
+    height: 100%;
+    overflow: hidden;
+}
+
+.gd-chev {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--teal);
+    line-height: 0.8;
+    opacity: 0;
+    /* using scaleX to stretch V into \ / shape */
+    transform: scaleX(1.5) translateY(0);
+    animation: gd-flow 2.4s infinite ease-out;
+}
+
+@keyframes gd-flow {
+    0% {
+        transform: scaleX(1.5) translateY(0px);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.8;
+    }
+
+    80% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scaleX(1.5) translateY(180px);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .grid-divider {
+        height: 280px;
+        margin-top: -280px;
+        margin-bottom: 0;
+    }
+
+    .gd-center-wrap {
+        width: 86%;
+    }
+
+    .gd-center-top {
+        height: 80px;
+    }
+
+    .gd-branch-left,
+    .gd-branch-right,
+    .gd-drop {
+        top: 80px;
+    }
+}

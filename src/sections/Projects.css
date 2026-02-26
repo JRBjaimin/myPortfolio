@@ -38,13 +38,29 @@
     display: flex;
     flex-direction: column;
     gap: 14px;
-    box-shadow: inset 0 0 0 1px var(--accent);
-    transition: background 0.3s;
-    will-change: transform;
+    box-shadow: inset 0 0 0 1px var(--accent), 0 20px 38px rgba(0, 0, 0, 0.35);
+    transition: background 0.32s ease, box-shadow 0.32s ease, border-color 0.32s ease;
+    will-change: transform, opacity;
+    transform-style: preserve-3d;
+    overflow: hidden;
 }
 
 .projects__card:hover {
-    background: rgba(255, 253, 187, 0.02);
+    background: rgba(255, 253, 187, 0.04);
+    box-shadow: inset 0 0 0 1px var(--accent), 0 26px 48px rgba(0, 0, 0, 0.45);
+}
+
+.projects__card-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(80% 65% at 8% 6%, color-mix(in srgb, var(--accent) 26%, transparent), transparent 70%);
+    opacity: 0.18;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.projects__card:hover .projects__card-glow {
+    opacity: 0.34;
 }
 
 /* ── Card top: .01 index + visit link ── */
@@ -73,25 +89,74 @@
     transform: translate(2px, -2px);
 }
 
-/* ── Data-viz bars ── */
-.projects__bars {
-    display: flex;
-    align-items: flex-end;
-    gap: 4px;
-    height: 52px;
-    margin: 4px 0;
+/* ── Card HUD icon ── */
+.projects__hud {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    margin: 4px 0 10px;
+    display: grid;
+    place-items: center;
 }
 
-.projects__bar {
-    width: 7px;
+.projects__hud-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--accent) 70%, transparent);
+}
+
+.projects__hud-ring--outer {
+    width: 56px;
+    height: 56px;
+}
+
+.projects__hud-ring--inner {
+    width: 36px;
+    height: 36px;
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+
+.projects__hud-center {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
     background: var(--accent);
-    opacity: 0.18;
-    border-radius: 1px;
-    transition: opacity 0.3s;
+    box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent);
 }
 
-.projects__card:hover .projects__bar {
-    opacity: 0.45;
+.projects__hud-pulse {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+    animation: projects-hud-pulse 2.2s ease-out infinite;
+}
+
+.projects__hud-sweep {
+    position: absolute;
+    width: 1px;
+    height: 28px;
+    background: linear-gradient(to top, transparent, var(--accent));
+    transform-origin: bottom center;
+    opacity: 0.7;
+}
+
+@keyframes projects-hud-pulse {
+    0% {
+        transform: scale(0.55);
+        opacity: 0.55;
+    }
+
+    70% {
+        transform: scale(1.08);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1.08);
+        opacity: 0;
+    }
 }
 
 /* ── Name ── */
@@ -103,6 +168,7 @@
     letter-spacing: 0.08em;
     color: var(--accent);
     line-height: 1.2;
+    text-shadow: 0 0 14px color-mix(in srgb, var(--accent) 28%, transparent);
 }
 
 /* ── Description ── */
@@ -122,6 +188,10 @@
     margin-top: auto;
 }
 
+.projects__tag {
+    border-color: rgba(255, 253, 187, 0.24);
+}
+
 @media (max-width: 900px) {
     .projects__strip {
         grid-template-columns: 1fr;
@@ -130,6 +200,11 @@
 }
 
 @media (max-width: 600px) {
+    .projects__inner {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
     .projects__card {
         min-height: auto;
         padding: 24px;

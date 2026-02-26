@@ -104,6 +104,10 @@
 }
 
 .nav__mobile {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
     background: rgba(2, 1, 0, 0.98);
     border-bottom: 1px solid var(--grid-line);
     display: flex;

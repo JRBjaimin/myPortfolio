@@ -1,6 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import './Projects.css';
-import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { motion as Motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import { LineDraw } from '../animations';
 
 function useBidirectional(ref, enterAt = 0.88, exitAt = 0.72) {
@@ -24,11 +24,6 @@ function useBidirectional(ref, enterAt = 0.88, exitAt = 0.72) {
         }
     });
 
-    useEffect(() => {
-        const rect = ref.current?.getBoundingClientRect();
-        if (rect && rect.top < window.innerHeight * enterAt && rect.bottom > 0) setInView(true);
-    }, []);
-
     return inView;
 }
 
@@ -48,7 +43,7 @@ function TitleReveal({ children }) {
     };
 
     return (
-        <motion.h2
+        <Motion.h2
             ref={ref}
             className="section-title"
             variants={container}
@@ -58,10 +53,10 @@ function TitleReveal({ children }) {
         >
             {words.map((w, i) => (
                 <span key={i} style={{ overflow: 'hidden', display: 'block', lineHeight: '1.05' }}>
-                    <motion.span style={{ display: 'block' }} variants={word}>{w}</motion.span>
+                    <Motion.span style={{ display: 'block' }} variants={word}>{w}</Motion.span>
                 </span>
             ))}
-        </motion.h2>
+        </Motion.h2>
     );
 }
 
@@ -114,38 +109,102 @@ function ProjectCard({ project, index }) {
     const inView = useBidirectional(ref);
 
     return (
-        <motion.div
+        <Motion.div
             ref={ref}
             className="projects__card"
             style={{ '--accent': project.accent }}
-            initial={{ x: 160, opacity: 0 }}
-            animate={inView ? { x: 0, opacity: 1 } : { x: 160, opacity: 0 }}
+            initial={{ y: 90, opacity: 0, scale: 0.96, rotateX: 8, clipPath: 'inset(14% 0 0 0)' }}
+            animate={inView ? { y: 0, opacity: 1, scale: 1, rotateX: 0, clipPath: 'inset(0% 0 0 0)' } : { y: 90, opacity: 0, scale: 0.96, rotateX: 8, clipPath: 'inset(14% 0 0 0)' }}
             transition={{
-                duration: 0.75,
+                duration: 0.9,
                 ease: [0.22, 1, 0.36, 1],
-                delay: index * 0.12, /* stagger — cards sweep in one by one from right */
+                delay: index * 0.1,
             }}
+            whileHover={{ y: -6, scale: 1.01, transition: { duration: 0.28, ease: [0.22, 1, 0.36, 1] } }}
         >
+            <div className="projects__card-glow" aria-hidden="true" />
+
             <div className="projects__card-top">
-                <span className="projects__index">{project.index}</span>
+            <Motion.span
+                    className="projects__index"
+                    initial={{ x: -24, opacity: 0 }}
+                    animate={inView ? { x: 0, opacity: 0.9 } : { x: -24, opacity: 0 }}
+                    transition={{ duration: 0.6, delay: 0.14 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                >
+                    {project.index}
+                </Motion.span>
                 {project.link && (
                     <a href={project.link} target="_blank" rel="noreferrer" className="projects__visit">↗</a>
                 )}
             </div>
 
-            {/* Data-viz bars */}
-            <div className="projects__bars" aria-hidden="true">
-                {[...Array(5)].map((_, j) => (
-                    <div key={j} className="projects__bar" style={{ height: `${20 + j * 12}px` }} />
-                ))}
+            <div className="projects__hud" aria-hidden="true">
+                <Motion.div
+                    className="projects__hud-ring projects__hud-ring--outer"
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={inView ? { scale: 1, opacity: 0.9 } : { scale: 0.8, opacity: 0 }}
+                    transition={{ duration: 0.5, delay: 0.18 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                />
+                <Motion.div
+                    className="projects__hud-ring projects__hud-ring--inner"
+                    initial={{ scale: 0.7, opacity: 0 }}
+                    animate={inView ? { scale: 1, opacity: 0.8 } : { scale: 0.7, opacity: 0 }}
+                    transition={{ duration: 0.5, delay: 0.24 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                />
+                <Motion.div
+                    className="projects__hud-center"
+                    initial={{ scale: 0.2, opacity: 0 }}
+                    animate={inView ? { scale: 1, opacity: 1 } : { scale: 0.2, opacity: 0 }}
+                    transition={{ duration: 0.45, delay: 0.3 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                />
+                <Motion.div
+                    className="projects__hud-pulse"
+                    initial={{ scale: 0.4, opacity: 0 }}
+                    animate={inView ? { scale: 1, opacity: 0.45 } : { scale: 0.4, opacity: 0 }}
+                    transition={{ duration: 0.5, delay: 0.34 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                />
+                <Motion.div
+                    className="projects__hud-sweep"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={inView ? { rotate: 270, opacity: 0.7 } : { rotate: -90, opacity: 0 }}
+                    transition={{ duration: 1.5, delay: 0.38 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                />
             </div>
 
-            <h3 className="projects__name">{project.name}</h3>
-            <p className="projects__desc">{project.description}</p>
+            <Motion.h3
+                className="projects__name"
+                initial={{ y: 24, opacity: 0 }}
+                animate={inView ? { y: 0, opacity: 1 } : { y: 24, opacity: 0 }}
+                transition={{ duration: 0.55, delay: 0.24 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            >
+                {project.name}
+            </Motion.h3>
+            <Motion.p
+                className="projects__desc"
+                initial={{ y: 24, opacity: 0 }}
+                animate={inView ? { y: 0, opacity: 1 } : { y: 24, opacity: 0 }}
+                transition={{ duration: 0.62, delay: 0.28 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            >
+                {project.description}
+            </Motion.p>
             <div className="projects__tags">
-                {project.tags.map(t => <span key={t} className="tag">{t}</span>)}
+                {project.tags.map((t, tagIndex) => (
+                    <Motion.span
+                        key={t}
+                        className="tag projects__tag"
+                        initial={{ y: 10, opacity: 0 }}
+                        animate={inView ? { y: 0, opacity: 1 } : { y: 10, opacity: 0 }}
+                        transition={{
+                            duration: 0.4,
+                            delay: 0.34 + index * 0.08 + tagIndex * 0.04,
+                            ease: [0.22, 1, 0.36, 1],
+                        }}
+                    >
+                        {t}
+                    </Motion.span>
+                ))}
             </div>
-        </motion.div>
+        </Motion.div>
     );
 }
 
@@ -157,7 +216,7 @@ export default function Projects() {
         <section id="projects" className="projects">
             <LineDraw />
             <div className="container projects__inner">
-                <motion.span
+                <Motion.span
                     ref={headRef}
                     className="eyebrow"
                     initial={{ opacity: 0, y: 10 }}
@@ -165,7 +224,7 @@ export default function Projects() {
                     transition={{ duration: 0.5 }}
                 >
                     Work
-                </motion.span>
+                </Motion.span>
 
                 <TitleReveal>Featured Projects</TitleReveal>
 

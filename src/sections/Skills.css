@@ -52,6 +52,11 @@
 }
 
 @media (max-width: 600px) {
+    .skills__inner {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+
     .skills__row {
         grid-template-columns: 1fr;
         gap: 10px;

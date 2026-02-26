@@ -88,3 +88,31 @@
     color: var(--teal);
     opacity: 0.6;
 }
+
+@media (max-width: 768px) {
+    .exp__inner {
+        padding-top: 60px;
+        padding-bottom: 40px;
+    }
+
+    .exp__card {
+        padding: 24px 0;
+    }
+
+    .exp__card-meta {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .exp__company {
+        font-size: 1.05rem;
+    }
+
+    .exp__duration {
+        padding-top: 0;
+    }
+
+    .exp__points li {
+        font-size: 0.85rem;
+    }
+}

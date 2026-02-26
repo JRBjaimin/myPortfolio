@@ -1,0 +1,110 @@
+.anim-divider {
+    position: relative;
+    width: 100%;
+    height: 180px;
+    background: transparent;
+    overflow: hidden;
+    z-index: 10;
+    margin-top: -80px;
+    /* Pull it up OVER the skills section padding completely to eliminate blank space */
+    margin-bottom: 0px;
+    pointer-events: none;
+}
+
+.ad-center-wrap {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 72%;
+    max-width: 960px;
+    height: 100%;
+}
+
+.ad-branch-left {
+    position: absolute;
+    top: 0;
+    right: 50%;
+    width: 50%;
+    height: 1px;
+    background: var(--grid-line);
+}
+
+.ad-branch-right {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 1px;
+    background: var(--grid-line);
+}
+
+.ad-drop {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--grid-line);
+    display: flex;
+    justify-content: center;
+}
+
+.ad-drop-left {
+    left: 0;
+}
+
+.ad-drop-right {
+    right: 0;
+}
+
+.ad-drop-center {
+    left: 50%;
+}
+
+.ad-chevrons {
+    position: absolute;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 30px;
+    height: 100%;
+    overflow: hidden;
+}
+
+.ad-chev {
+    position: absolute;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--teal);
+    line-height: 0.8;
+    opacity: 0;
+    transform: scaleX(1.5) translateY(0);
+    animation: ad-flow 2.4s infinite ease-out;
+}
+
+@keyframes ad-flow {
+    0% {
+        transform: scaleX(1.5) translateY(0px);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 0.8;
+    }
+
+    80% {
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scaleX(1.5) translateY(180px);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .ad-center-wrap {
+        width: 86%;
+    }
+}

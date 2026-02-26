@@ -155,11 +155,13 @@
 /* ── Responsive ── */
 @media (max-width: 600px) {
     .contact__top {
+        padding-top: 60px;
         padding-bottom: 60px;
     }
 
     .contact__row {
         gap: 12px;
+        padding: 16px 0;
     }
 
     .contact__row-value {
