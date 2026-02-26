@@ -1,0 +1,108 @@
+.about {
+    padding-top: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.about__inner {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    max-width: 780px;
+}
+
+.about__headline {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    margin-bottom: 32px;
+}
+
+.about__headline em {
+    font-style: italic;
+    color: var(--teal);
+}
+
+.about__body2 {
+    margin-top: 16px;
+}
+
+.about__stats {
+    display: flex;
+    gap: 60px;
+    margin-top: 56px;
+    padding-top: 40px;
+    border-top: 1px solid var(--grid-line);
+}
+
+.about__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.about__stat-value {
+    font-family: var(--font-mono);
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1;
+}
+
+.about__stat-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--cream-muted);
+}
+
+/* ── Education block ── */
+.about__edu {
+    margin-top: 48px;
+    padding-top: 40px;
+    border-top: 1px solid var(--grid-line);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.about__edu .eyebrow {
+    margin-bottom: 20px;
+}
+
+.about__edu-row {
+    display: flex;
+    gap: 24px;
+    align-items: baseline;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--grid-line);
+}
+
+.about__edu-row:first-of-type {
+    border-top: 1px solid var(--grid-line);
+}
+
+.about__edu-deg {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--cream);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    min-width: 42px;
+}
+
+.about__edu-detail {
+    font-family: var(--font-sans);
+    font-size: 0.88rem;
+    color: var(--cream-dim);
+}
+
+@media (max-width: 600px) {
+    .about__stats {
+        gap: 30px;
+    }
+
+    .about__stat-value {
+        font-size: 2rem;
+    }
+}

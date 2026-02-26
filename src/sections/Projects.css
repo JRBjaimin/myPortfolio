@@ -1,0 +1,137 @@
+.projects {
+    padding-top: 0;
+    z-index: 1;
+}
+
+.projects__inner {
+    padding-top: 56px;
+    padding-bottom: 80px;
+    overflow: hidden;
+    /* clips the right-entry animation */
+}
+
+.projects__inner .section-title {
+    margin-bottom: 56px;
+}
+
+.projects__carousel {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+}
+
+.projects__strip {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    width: 100%;
+}
+
+/* ── Individual card ── */
+.projects__card {
+    background: var(--bg);
+    width: 100%;
+    min-height: 400px;
+    padding: 32px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: inset 0 0 0 1px var(--accent);
+    transition: background 0.3s;
+    will-change: transform;
+}
+
+.projects__card:hover {
+    background: rgba(255, 253, 187, 0.02);
+}
+
+/* ── Card top: .01 index + visit link ── */
+.projects__card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.projects__index {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    opacity: 0.9;
+}
+
+.projects__visit {
+    font-size: 1.1rem;
+    color: var(--cream-muted);
+    transition: color 0.25s, transform 0.25s;
+}
+
+.projects__visit:hover {
+    color: var(--accent);
+    transform: translate(2px, -2px);
+}
+
+/* ── Data-viz bars ── */
+.projects__bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 52px;
+    margin: 4px 0;
+}
+
+.projects__bar {
+    width: 7px;
+    background: var(--accent);
+    opacity: 0.18;
+    border-radius: 1px;
+    transition: opacity 0.3s;
+}
+
+.projects__card:hover .projects__bar {
+    opacity: 0.45;
+}
+
+/* ── Name ── */
+.projects__name {
+    font-family: var(--font-mono);
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    line-height: 1.2;
+}
+
+/* ── Description ── */
+.projects__desc {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    color: var(--cream-dim);
+    line-height: 1.72;
+    flex: 1;
+}
+
+/* ── Tags ── */
+.projects__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: auto;
+}
+
+@media (max-width: 900px) {
+    .projects__strip {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
+
+@media (max-width: 600px) {
+    .projects__card {
+        min-height: auto;
+        padding: 24px;
+    }
+}

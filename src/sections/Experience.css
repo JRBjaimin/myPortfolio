@@ -1,0 +1,90 @@
+.exp {
+    padding-top: 0;
+    z-index: 1;
+}
+
+.exp__inner {
+    padding-top: 100px;
+    padding-bottom: 56px;
+}
+
+.exp__inner .section-title {
+    margin-bottom: 60px;
+}
+
+.exp__list {
+    display: flex;
+    flex-direction: column;
+}
+
+.exp__card {
+    padding: 40px 0;
+    border-bottom: 1px solid var(--grid-line);
+}
+
+.exp__list>div:first-child .exp__card {
+    border-top: 1px solid var(--grid-line);
+}
+
+.exp__card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.exp__company {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--cream);
+    margin-bottom: 6px;
+}
+
+.exp__role {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    font-weight: 400;
+}
+
+.exp__duration {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    color: var(--cream-muted);
+    text-transform: uppercase;
+    padding-top: 4px;
+    flex-shrink: 0;
+}
+
+.exp__points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 720px;
+}
+
+.exp__points li {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    color: var(--cream-dim);
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.65;
+}
+
+.exp__points li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    opacity: 0.6;
+}

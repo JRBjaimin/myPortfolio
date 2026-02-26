@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+/* ===================== RESET ===================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Exact mindjoin palette */
+  --bg: #000000;
+  --bg-card: #080807;
+  --cream: #FFFDBB;
+  --cream-dim: rgba(255, 253, 187, 0.55);
+  --cream-muted: rgba(255, 253, 187, 0.28);
+  --grid-line: rgba(255, 253, 187, 0.1);
+
+  /* Accent colors from mindjoin cards */
+  --teal: #40cfb0;
+  --orange: #e85d26;
+  --blue: #5b8fff;
+  --gold: #c9a050;
+
+  /* Typography */
+  --font-display: 'Bebas Neue', 'Impact', sans-serif;
+  /* matches Discopia-Regular from mindjoin */
+  --font-mono: 'Space Mono', 'Courier New', monospace;
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --nav-h: 64px;
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --t: all 0.3s var(--ease);
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+  background: #000;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: #000;
+  color: var(--cream);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  min-height: 100%;
+}
+
+main {
+  display: block;
+  background: #000;
+  position: relative;
+}
+
+#root {
+  background: #000;
+  min-height: 100vh;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 3px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cream-muted);
+  border-radius: 99px;
+}
+
+::selection {
+  background: var(--teal);
+  color: var(--bg);
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-mono);
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===================== GLOBAL GRID LAYOUT ===================== */
+/* The mindjoin page uses a 3-column-ish structure with thin hairline lines */
+.page-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.page-grid__col {
+  border-left: 1px solid var(--grid-line);
+}
+
+.page-grid__col:last-child {
+  border-right: 1px solid var(--grid-line);
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px;
+  position: relative;
+  z-index: 1;
+}
+
+section {
+  padding: 120px 0;
+  position: relative;
+  z-index: 1;
+}
+
+/* ===================== EYEBROW ===================== */
+.eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 253, 187, 0.88);
+  margin-bottom: 24px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.7);
+}
+
+/* Section headings */
+.section-title {
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 4.5vw, 3.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: rgba(255, 253, 187, 0.95);
+  margin-bottom: 40px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.65);
+}
+
+.section-body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--cream-dim);
+  max-width: 560px;
+  line-height: 1.8;
+}
+
+/* Hairline divider */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--grid-line);
+}
+
+/* Tag */
+.tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid rgba(255, 253, 187, 0.35);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 253, 187, 0.75);
+  border-radius: 2px;
+  transition: var(--t);
+}
+
+.tag:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+/* Utility */
+.text-teal {
+  color: var(--teal);
+}
+
+.text-orange {
+  color: var(--orange);
+}
+
+.text-cream {
+  color: var(--cream);
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 24px;
+  }
+
+  section {
+    padding: 80px 0;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .page-grid {
+    display: none;
+  }
+}
