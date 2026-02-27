@@ -1,36 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import './Projects.css';
-import { motion as Motion, useScroll, useMotionValueEvent } from 'framer-motion';
+import { motion as Motion, useInView } from 'framer-motion';
 import { LineDraw } from '../animations';
-
-function useBidirectional(ref, enterAt = 0.88, exitAt = 0.72) {
-    const [inView, setInView] = useState(false);
-    const { scrollY } = useScroll();
-    const prevY = useRef(null);
-
-    useMotionValueEvent(scrollY, 'change', (y) => {
-        const el = ref.current;
-        if (!el) return;
-        const rect = el.getBoundingClientRect();
-        const vh = window.innerHeight;
-        const scrollingDown = prevY.current === null ? true : y > prevY.current;
-        prevY.current = y;
-
-        if (scrollingDown) {
-            if (rect.top < vh * enterAt && rect.bottom > 0) setInView(true);
-        } else {
-            if (rect.top > vh * exitAt) setInView(false);
-            else if (rect.top < vh * enterAt && rect.bottom > 0) setInView(true);
-        }
-    });
-
-    return inView;
-}
 
 /* ── Section title with mindjoin-style word-by-word reveal ── */
 function TitleReveal({ children }) {
     const ref = useRef(null);
-    const inView = useBidirectional(ref, 0.9, 0.75);
+    const inView = useInView(ref, { margin: '-10% 0px -20% 0px', amount: 0.2 });
     const words = children.split(' ');
 
     const container = {
@@ -106,7 +82,7 @@ const PROJECTS = [
 /* ── Single card — slides in from the right ── */
 function ProjectCard({ project, index }) {
     const ref = useRef(null);
-    const inView = useBidirectional(ref);
+    const inView = useInView(ref, { margin: '-6% 0px -18% 0px', amount: 0.2 });
 
     return (
         <Motion.div
@@ -140,15 +116,15 @@ function ProjectCard({ project, index }) {
 
             <div className="projects__hud" aria-hidden="true">
                 <Motion.div
-                    className="projects__hud-ring projects__hud-ring--outer"
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={inView ? { scale: 1, opacity: 0.9 } : { scale: 0.8, opacity: 0 }}
+                    className="projects__hud-circle projects__hud-circle--outer"
+                    initial={{ scale: 0.82, opacity: 0 }}
+                    animate={inView ? { scale: 1, opacity: 1 } : { scale: 0.82, opacity: 0 }}
                     transition={{ duration: 0.5, delay: 0.18 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 />
                 <Motion.div
-                    className="projects__hud-ring projects__hud-ring--inner"
-                    initial={{ scale: 0.7, opacity: 0 }}
-                    animate={inView ? { scale: 1, opacity: 0.8 } : { scale: 0.7, opacity: 0 }}
+                    className="projects__hud-circle projects__hud-circle--inner"
+                    initial={{ scale: 0.72, opacity: 0 }}
+                    animate={inView ? { scale: 1, opacity: 0.9 } : { scale: 0.72, opacity: 0 }}
                     transition={{ duration: 0.5, delay: 0.24 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 />
                 <Motion.div
@@ -158,16 +134,16 @@ function ProjectCard({ project, index }) {
                     transition={{ duration: 0.45, delay: 0.3 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 />
                 <Motion.div
-                    className="projects__hud-pulse"
-                    initial={{ scale: 0.4, opacity: 0 }}
-                    animate={inView ? { scale: 1, opacity: 0.45 } : { scale: 0.4, opacity: 0 }}
-                    transition={{ duration: 0.5, delay: 0.34 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    className="projects__hud-beam"
+                    initial={{ scaleX: 0, opacity: 0 }}
+                    animate={inView ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
+                    transition={{ duration: 0.55, delay: 0.34 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 />
                 <Motion.div
-                    className="projects__hud-sweep"
-                    initial={{ rotate: -90, opacity: 0 }}
-                    animate={inView ? { rotate: 270, opacity: 0.7 } : { rotate: -90, opacity: 0 }}
-                    transition={{ duration: 1.5, delay: 0.38 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                    className="projects__hud-orbit"
+                    initial={{ rotate: -25, opacity: 0 }}
+                    animate={inView ? { rotate: 0, opacity: 1 } : { rotate: -25, opacity: 0 }}
+                    transition={{ duration: 0.65, delay: 0.38 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 />
             </div>
 
@@ -210,7 +186,7 @@ function ProjectCard({ project, index }) {
 
 export default function Projects() {
     const headRef = useRef(null);
-    const headInView = useBidirectional(headRef, 0.9, 0.75);
+    const headInView = useInView(headRef, { margin: '-10% 0px -20% 0px', amount: 0.2 });
 
     return (
         <section id="projects" className="projects">

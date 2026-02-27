@@ -92,70 +92,100 @@
 /* ── Card HUD icon ── */
 .projects__hud {
     position: relative;
-    width: 56px;
-    height: 56px;
-    margin: 4px 0 10px;
+    width: 92px;
+    height: 74px;
+    margin: 6px 0 12px;
     display: grid;
     place-items: center;
 }
 
-.projects__hud-ring {
+.projects__hud-circle {
     position: absolute;
     border-radius: 50%;
-    border: 1px solid color-mix(in srgb, var(--accent) 70%, transparent);
+    border: 2px solid color-mix(in srgb, var(--accent) 82%, transparent);
+    box-shadow: 0 0 14px color-mix(in srgb, var(--accent) 28%, transparent);
 }
 
-.projects__hud-ring--outer {
-    width: 56px;
-    height: 56px;
+.projects__hud-circle--outer {
+    width: 74px;
+    height: 74px;
 }
 
-.projects__hud-ring--inner {
-    width: 36px;
-    height: 36px;
-    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+.projects__hud-circle--inner {
+    width: 44px;
+    height: 44px;
+    border-color: color-mix(in srgb, var(--accent) 65%, transparent);
 }
 
 .projects__hud-center {
-    width: 8px;
-    height: 8px;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     background: var(--accent);
-    box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 70%, transparent);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 82%, transparent);
+    animation: projects-hud-dot 1.8s ease-in-out infinite;
 }
 
-.projects__hud-pulse {
+.projects__hud-beam {
     position: absolute;
-    width: 56px;
-    height: 56px;
+    left: 0;
+    top: 50%;
+    width: 46%;
+    height: 2px;
+    transform: translateY(-50%);
+    transform-origin: right center;
+    background: linear-gradient(to left,
+            color-mix(in srgb, var(--accent) 90%, transparent),
+            color-mix(in srgb, var(--accent) 18%, transparent));
+    animation: projects-hud-beam 2.1s ease-in-out infinite;
+}
+
+.projects__hud-orbit {
+    position: absolute;
+    width: 74px;
+    height: 74px;
     border-radius: 50%;
-    border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
-    animation: projects-hud-pulse 2.2s ease-out infinite;
+    border-top: 2px solid color-mix(in srgb, var(--accent) 92%, transparent);
+    border-right: 2px solid transparent;
+    border-bottom: 2px solid transparent;
+    border-left: 2px solid transparent;
+    animation: projects-hud-orbit 2.6s linear infinite;
 }
 
-.projects__hud-sweep {
-    position: absolute;
-    width: 1px;
-    height: 28px;
-    background: linear-gradient(to top, transparent, var(--accent));
-    transform-origin: bottom center;
-    opacity: 0.7;
-}
-
-@keyframes projects-hud-pulse {
+@keyframes projects-hud-dot {
     0% {
-        transform: scale(0.55);
-        opacity: 0.55;
+        transform: scale(0.85);
     }
 
-    70% {
+    50% {
         transform: scale(1.08);
-        opacity: 0;
     }
 
     100% {
-        transform: scale(1.08);
-        opacity: 0;
+        transform: scale(0.85);
+    }
+}
+
+@keyframes projects-hud-beam {
+    0%,
+    100% {
+        opacity: 0.45;
+        transform: translateY(-50%) scaleX(0.86);
+    }
+
+    50% {
+        opacity: 1;
+        transform: translateY(-50%) scaleX(1);
+    }
+}
+
+@keyframes projects-hud-orbit {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
     }
 }
 

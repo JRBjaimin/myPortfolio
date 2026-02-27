@@ -4,36 +4,46 @@ import './GridDivider.css';
 export default function GridDivider() {
     return (
         <section className="grid-divider" aria-hidden="true">
-            <div className="gd-top-h" />
-
             <div className="gd-center-wrap">
-                {/* Center Drop */}
-                <div className="gd-center-top" />
-
                 {/* Branches */}
-                <div className="gd-branch-left" />
-                <div className="gd-branch-right" />
+                {/* Inner Branches: center 50% out to 30% / 70% */}
+                <div className="gd-branch gd-branch-inner-left" />
+                <div className="gd-branch gd-branch-inner-right" />
 
-                {/* Bottom Drops */}
-                <div className="gd-drop gd-drop-left">
-                    <Chevrons />
+                {/* Outer Branches: edges 0% / 100% in to 10% / 90% */}
+                <div className="gd-branch gd-branch-outer-left" />
+                <div className="gd-branch gd-branch-outer-right" />
+
+                {/* Vertical Drops */}
+                <div className="gd-drop gd-drop-outer-left">
+                    <Chevrons count={2} />
                 </div>
+
+                <div className="gd-drop gd-drop-inner-left">
+                    <Chevrons count={3} />
+                </div>
+
                 <div className="gd-drop gd-drop-center">
-                    <Chevrons />
+                    <Chevrons count={4} />
                 </div>
-                <div className="gd-drop gd-drop-right">
-                    <Chevrons />
+
+                <div className="gd-drop gd-drop-inner-right">
+                    <Chevrons count={3} />
+                </div>
+
+                <div className="gd-drop gd-drop-outer-right">
+                    <Chevrons count={2} />
                 </div>
             </div>
         </section>
     );
 }
 
-function Chevrons() {
+function Chevrons({ count = 3 }) {
     return (
         <div className="gd-chevrons">
-            {[...Array(3)].map((_, i) => (
-                <span key={i} className="gd-chev" style={{ animationDelay: `${i * 0.8}s` }}>V</span>
+            {[...Array(count)].map((_, i) => (
+                <span key={i} className="gd-chev" style={{ animationDelay: `${i * 0.12}s` }}>V</span>
             ))}
         </div>
     );

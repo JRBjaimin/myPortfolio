@@ -7,8 +7,8 @@ import { useRef, useState, useEffect } from 'react';
 const LINKS = [
     { label: 'Email', value: 'jaiminbharucha009@gmail.com', href: 'mailto:jaiminbharucha009@gmail.com' },
     { label: 'Phone', value: '+91 88493 98698', href: 'tel:+918849398698' },
-    { label: 'LinkedIn', value: 'linkedin.com/in/jaiminbharucha', href: 'https://linkedin.com/in/jaiminbharucha' },
-    { label: 'GitHub', value: 'github.com/jaiminbharucha', href: 'https://github.com/jaiminbharucha' },
+    { label: 'LinkedIn', value: 'linkedin.com/in/jaimin-bharucha-730660150', href: 'https://www.linkedin.com/in/jaimin-bharucha-730660150?utm_source=share_via&utm_content=profile&utm_medium=member_android' },
+    { label: 'GitHub', value: 'github.com/JRBjaimin', href: 'https://github.com/JRBjaimin?tab=repositories' },
     { label: 'Location', value: 'Surat, India', href: null },
 ];
 

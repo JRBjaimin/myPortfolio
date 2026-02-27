@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import './Hero.css';
 import {
     motion as Motion,
@@ -48,6 +48,83 @@ function FitText({ children, className, containerRef }) {
     );
 }
 
+function SeamlessBackgroundVideo({ src }) {
+    const videoARef = useRef(null);
+    const videoBRef = useRef(null);
+    const [active, setActive] = useState('a');
+    const switchingRef = useRef(false);
+
+    useEffect(() => {
+        const first = videoARef.current;
+        if (!first) return;
+        const start = async () => {
+            try {
+                await first.play();
+            } catch {
+                /* autoplay may be blocked in rare cases */
+            }
+        };
+        start();
+    }, []);
+
+    useEffect(() => {
+        const timer = window.setInterval(() => {
+            const current = active === 'a' ? videoARef.current : videoBRef.current;
+            const next = active === 'a' ? videoBRef.current : videoARef.current;
+            if (!current || !next) return;
+            if (!Number.isFinite(current.duration) || current.duration <= 0) return;
+
+            const remaining = current.duration - current.currentTime;
+            if (!switchingRef.current && remaining <= 1.0) {
+                switchingRef.current = true;
+                next.currentTime = 0;
+                const playPromise = next.play();
+                if (playPromise?.catch) playPromise.catch(() => { });
+
+                const prev = current;
+                setActive(active === 'a' ? 'b' : 'a');
+
+                window.setTimeout(() => {
+                    prev.pause();
+                    prev.currentTime = 0;
+                    switchingRef.current = false;
+                }, 1000); // Wait 1s for the crossfade to complete
+            }
+        }, 60);
+
+        return () => window.clearInterval(timer);
+    }, [active]);
+
+    return (
+        <>
+            <video
+                ref={videoARef}
+                className={`hero-bg-media ${active === 'a' ? 'hero-bg-media--active' : ''}`}
+                src={src}
+                autoPlay
+                muted
+                playsInline
+                preload="auto"
+                aria-hidden="true"
+                disablePictureInPicture
+                controlsList="nodownload nofullscreen noplaybackrate"
+            />
+            <video
+                ref={videoBRef}
+                className={`hero-bg-media ${active === 'b' ? 'hero-bg-media--active' : ''}`}
+                src={src}
+                autoPlay
+                muted
+                playsInline
+                preload="auto"
+                aria-hidden="true"
+                disablePictureInPicture
+                controlsList="nodownload nofullscreen noplaybackrate"
+            />
+        </>
+    );
+}
+
 export default function Hero() {
     const containerRef = useRef(null);
     const nLetterRef = useRef(null);   /* ref on the 'N' letter span */
@@ -93,7 +170,9 @@ export default function Hero() {
                 <Motion.div
                     className="hero-bg"
                     style={{ scale: bgScale, y: bgY, filter: bgFilter }}
-                />
+                >
+                    <SeamlessBackgroundVideo src="/hero-bg.mp4" />
+                </Motion.div>
 
                 <Motion.div className="hero-overlay" style={{ opacity: overlayOpacity }} />
                 <Motion.div className="hero-frame" style={{ opacity: frameOpacity }} aria-hidden="true" />
