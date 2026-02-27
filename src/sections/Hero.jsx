@@ -48,11 +48,19 @@ function FitText({ children, className, containerRef }) {
     );
 }
 
-function SeamlessBackgroundVideo({ src }) {
+function SeamlessBackgroundVideo({ src, onReady }) {
     const videoARef = useRef(null);
     const videoBRef = useRef(null);
     const [active, setActive] = useState('a');
     const switchingRef = useRef(false);
+    const readyEmittedRef = useRef(false);
+
+    const emitReady = () => {
+        if (!readyEmittedRef.current) {
+            readyEmittedRef.current = true;
+            onReady?.();
+        }
+    };
 
     useEffect(() => {
         const first = videoARef.current;
@@ -108,6 +116,8 @@ function SeamlessBackgroundVideo({ src }) {
                 aria-hidden="true"
                 disablePictureInPicture
                 controlsList="nodownload nofullscreen noplaybackrate"
+                onCanPlay={emitReady}
+                onPlaying={emitReady}
             />
             <video
                 ref={videoBRef}
@@ -120,6 +130,7 @@ function SeamlessBackgroundVideo({ src }) {
                 aria-hidden="true"
                 disablePictureInPicture
                 controlsList="nodownload nofullscreen noplaybackrate"
+                onCanPlay={emitReady}
             />
         </>
     );
@@ -162,16 +173,23 @@ export default function Hero() {
 
     const overlayOpacity = useTransform(smooth, [0, 0.76], [0.18, 0.7]);
     const frameOpacity = useTransform(smooth, [0.1, 0.45], [0.25, 1]);
+    const [videoReady, setVideoReady] = useState(false);
 
     return (
         <section ref={containerRef} className="hero-container" id="hero">
             <div className="hero-sticky">
 
                 <Motion.div
-                    className="hero-bg"
+                    className={`hero-bg ${videoReady ? 'hero-bg--ready' : ''}`}
                     style={{ scale: bgScale, y: bgY, filter: bgFilter }}
                 >
-                    <SeamlessBackgroundVideo src="/hero-bg.mp4" />
+                    <div className="hero-bg-fallback" aria-hidden="true">
+                        <span className="hero-bg-fallback__glow hero-bg-fallback__glow--one" />
+                        <span className="hero-bg-fallback__glow hero-bg-fallback__glow--two" />
+                        <span className="hero-bg-fallback__glow hero-bg-fallback__glow--three" />
+                        <span className="hero-bg-fallback__noise" />
+                    </div>
+                    <SeamlessBackgroundVideo src="/hero-bg.mp4" onReady={() => setVideoReady(true)} />
                 </Motion.div>
 
                 <Motion.div className="hero-overlay" style={{ opacity: overlayOpacity }} />

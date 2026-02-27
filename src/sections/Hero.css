@@ -34,6 +34,75 @@
     overflow: hidden;
 }
 
+.hero-bg-fallback {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(120% 90% at 18% 22%, rgba(66, 207, 176, 0.23), transparent 56%),
+        radial-gradient(95% 80% at 78% 18%, rgba(91, 143, 255, 0.22), transparent 52%),
+        radial-gradient(110% 95% at 55% 86%, rgba(232, 93, 38, 0.16), transparent 60%),
+        linear-gradient(165deg, #050507 0%, #020204 45%, #000000 100%);
+    z-index: 0;
+    opacity: 1;
+    transition: opacity 0.9s ease;
+}
+
+.hero-bg-fallback__glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(45px);
+    opacity: 0.35;
+    mix-blend-mode: screen;
+    animation: hero-fallback-drift 11s ease-in-out infinite alternate;
+}
+
+.hero-bg-fallback__glow--one {
+    width: 34vw;
+    height: 34vw;
+    min-width: 220px;
+    min-height: 220px;
+    left: -8%;
+    top: 14%;
+    background: rgba(66, 207, 176, 0.42);
+}
+
+.hero-bg-fallback__glow--two {
+    width: 30vw;
+    height: 30vw;
+    min-width: 200px;
+    min-height: 200px;
+    right: -6%;
+    top: 6%;
+    background: rgba(91, 143, 255, 0.4);
+    animation-duration: 13s;
+}
+
+.hero-bg-fallback__glow--three {
+    width: 38vw;
+    height: 28vw;
+    min-width: 260px;
+    min-height: 180px;
+    left: 34%;
+    bottom: -10%;
+    background: rgba(232, 93, 38, 0.3);
+    animation-duration: 15s;
+}
+
+.hero-bg-fallback__noise {
+    position: absolute;
+    inset: 0;
+    background-image:
+        repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.022) 0 1px, transparent 1px 3px),
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.015) 0 1px, transparent 1px 4px);
+    opacity: 0.24;
+    mix-blend-mode: soft-light;
+    animation: hero-fallback-noise 0.42s steps(2, end) infinite;
+}
+
+.hero-bg--ready .hero-bg-fallback {
+    opacity: 0.2;
+}
+
 .hero-bg-media {
     position: absolute;
     inset: 0;
@@ -50,8 +119,28 @@
     transform: translateZ(0);
 }
 
-.hero-bg-media--active {
+.hero-bg--ready .hero-bg-media--active {
     opacity: 1;
+}
+
+@keyframes hero-fallback-drift {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate3d(2.2vw, -1.2vh, 0) scale(1.06);
+    }
+}
+
+@keyframes hero-fallback-noise {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(0.5px, -0.5px, 0);
+    }
 }
 
 .hero-overlay {
